@@ -1,6 +1,9 @@
 package integers
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestAdd(t *testing.T) {
 	t.Run("Add two positive numbers", func(t *testing.T) {
@@ -16,4 +19,11 @@ func assertCorrectMessage(t *testing.T, expected int, got int) {
 	if expected != got {
 		t.Errorf("expected '%d' but got '%d'", expected, got)
 	}
+}
+
+// Example functions are used to demonstrate how to use the function. and added to the documentation.
+func ExampleAdd() {
+	sum := Add(1, 2)
+	fmt.Println(sum)
+	// Output: 3
 }
