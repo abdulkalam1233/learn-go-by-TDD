@@ -1,10 +1,15 @@
 package hello_world
 
-const englishGreetingPrefix = "Hello, "
+const englishGreeting = "Hello, "
+const spanishGreeting = "Hola, "
+const spanishCountry = "Spanish"
 
-func Hello(name string) string {
+func Hello(name string, country string) string {
 	if name == "" {
-		return englishGreetingPrefix + "World"
+		return englishGreeting + "World"
 	}
-	return englishGreetingPrefix + name
+	if country == spanishCountry {
+		return spanishGreeting + name
+	}
+	return englishGreeting + name
 }
