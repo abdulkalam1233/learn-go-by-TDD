@@ -1,0 +1,6 @@
+# Testing
+```
+    go test ./...
+    go test -v ./...
+    go test -v ./... -run TestName
+```
