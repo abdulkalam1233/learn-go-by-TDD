@@ -16,3 +16,9 @@ func assertCorrectMessage(t *testing.T, expected string, got string) {
 		t.Errorf("expected '%s' but got '%s'", expected, got)
 	}
 }
+
+func BenchmarkRepeat(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Repeat("a")
+	}
+}
