@@ -14,38 +14,41 @@ func TestPerimeter(t *testing.T) {
 
 func TestArea(t *testing.T) {
 
-	//checkArea := func(t *testing.T, shape Shape, want float64) {
+	//checkArea := func(t *testing.T, shape Shape, hasArea float64) {
 	//	t.Helper()
 	//	got := shape.Area()
-	//	if got != want {
-	//		t.Errorf("got %.2f, want %.2f", got, want)
+	//	if got != hasArea {
+	//		t.Errorf("got %.2f, hasArea %.2f", got, hasArea)
 	//	}
 	//}
 	//
 	//t.Run("Area of rectangle", func(t *testing.T) {
 	//	rectangle := Rectangle{10.00, 10.00}
-	//	want := 100.00
-	//	checkArea(t, rectangle, want)
+	//	hasArea := 100.00
+	//	checkArea(t, rectangle, hasArea)
 	//})
 	//
 	//t.Run("Area of circle", func(t *testing.T) {
 	//	circle := Circle{10.00}
-	//	want := 314.1592653589793
-	//	checkArea(t, circle, want)
+	//	hasArea := 314.1592653589793
+	//	checkArea(t, circle, hasArea)
 	//})
 
+	// Table tests
 	areaTests := []struct {
-		Shape Shape
-		want  float64
+		name    string
+		shape   Shape
+		hasArea float64
 	}{
-		{Rectangle{10.00, 10.00}, 100.00},
-		{Circle{10.00}, 314.1592653589793},
-		{Triangle{10.00, 10.00}, 50.00},
+		{name: "Rectangle", shape: Rectangle{10.00, 10.00}, hasArea: 100.00},
+		{name: "Circle", shape: Circle{10.00}, hasArea: 314.1592653589793},
+		{name: "Triangle", shape: Triangle{10.00, 10.00}, hasArea: 50.00},
 	}
 	for _, test := range areaTests {
-		got := test.Shape.Area()
-		if got != test.want {
-			t.Errorf("got %.2f, want %.2f", got, test.want)
+		got := test.shape.Area()
+		if got != test.hasArea {
+			// clear assertions
+			t.Errorf("%#v got %g want %g", test.shape, got, test.hasArea)
 		}
 	}
 }
