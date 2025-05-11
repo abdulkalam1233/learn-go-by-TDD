@@ -10,17 +10,12 @@ func TestDictionary(t *testing.T) {
 	t.Run("known word", func(t *testing.T) {
 		got, err := dictionary.Search("test")
 		want := "Test something"
-		if err != nil {
-			t.Fatal("should find added word:", err)
-		}
+		AssertNoErrors(t, err)
 		assertStrings(t, got, want)
 	})
 
 	t.Run("unknown word", func(t *testing.T) {
 		_, got := dictionary.Search("unknown")
-		if got == nil {
-			t.Fatal("Expected an error")
-		}
 		assertErrors(t, got, ErrNotFound)
 	})
 }
@@ -31,8 +26,8 @@ func TestAdd(t *testing.T) {
 		dictionary := Dictionary{}
 		word := "test"
 		definition := "Test something"
-		dictionary.Add(word, definition)
-
+		err := dictionary.Add(word, definition)
+		AssertNoErrors(t, err)
 		assertDefinition(t, dictionary, word, definition)
 	})
 
@@ -51,10 +46,7 @@ func assertDefinition(t *testing.T, dictionary Dictionary, word string, definiti
 	t.Helper()
 
 	got, err := dictionary.Search(word)
-	if err != nil {
-		t.Fatal("should find added word:", err)
-	}
-
+	AssertNoErrors(t, err)
 	assertStrings(t, got, definition)
 }
 
@@ -71,5 +63,14 @@ func assertErrors(t *testing.T, got error, want error) {
 
 	if got != want {
 		t.Errorf("got error %q want %q", got, want)
+	}
+}
+
+func AssertNoErrors(
+	t *testing.T, got error,
+) {
+	t.Helper()
+	if got != nil {
+		t.Fatal("should not get an error:", got)
 	}
 }
