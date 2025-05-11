@@ -8,8 +8,11 @@ func TestDictionary(t *testing.T) {
 	dictionary := Dictionary{"test": "Test something"}
 
 	t.Run("known word", func(t *testing.T) {
-		got, _ := dictionary.Search("test")
+		got, err := dictionary.Search("test")
 		want := "Test something"
+		if err != nil {
+			t.Fatal("should find added word:", err)
+		}
 		assertStrings(t, got, want)
 	})
 
@@ -19,6 +22,19 @@ func TestDictionary(t *testing.T) {
 			t.Fatal("Expected an error")
 		}
 		assertErrors(t, got, ErrNotFound)
+	})
+
+	t.Run("Adding a word", func(t *testing.T) {
+		dictionary = Dictionary{}
+		dictionary.Add("test", "Test something")
+
+		got, err := dictionary.Search("test")
+		want := "Test something"
+		if err != nil {
+			t.Fatal("should find added word:", err)
+		}
+
+		assertStrings(t, got, want)
 	})
 }
 
